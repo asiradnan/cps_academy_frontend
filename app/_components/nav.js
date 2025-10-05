@@ -6,6 +6,7 @@ import { useState } from "react"
 export default function NavBar() {
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token") ? true : false)
     const navLinks = [
+        { href: "/", name: "Home" },
         { href: "/courses", name: "Courses" },
         { href: "/trainers", name: "Trainers" },
     ]
