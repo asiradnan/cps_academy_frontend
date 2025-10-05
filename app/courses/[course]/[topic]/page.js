@@ -1,14 +1,15 @@
 "use client"
 
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { redirect } from "next/dist/server/api-utils";
+import { useEffect, useState, use } from "react";
 
-export default function Topic() {
-    const params = useParams()
-    console.log(params) 
+export default function Topic({params}) {
+
+    const param = use(params)
+    console.log(param) 
     const [topic, setTopic] = useState({})
     async function fetchTopic() {
-        const response = await fetch(`https://strapicpsacademy-production.up.railway.app/api/topics/${params.topic}?populate=classes`,
+        const response = await fetch(`https://strapicpsacademy-production.up.railway.app/api/topics/${param.topic}?populate=classes`,
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -20,6 +21,7 @@ export default function Topic() {
         console.log(data)
     }
     useEffect(() => {
+        if (!localStorage.getItem("token")) redirect("/login")
         fetchTopic()
     }, [])
     return (

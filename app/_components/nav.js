@@ -34,6 +34,8 @@ export default function NavBar() {
                     <Link href="/profile" key="profile" className={pathname === "/profile" ? "font-bold" : ""}>Profile</Link>
                     <button onClick={() => {
                         localStorage.removeItem("token");
+                        localStorage.removeItem("user");
+                        localStorage.removeItem("courses");
                         setIsLoggedIn(false);
                         redirect("/");
                     }}>Log Out</button>

@@ -4,15 +4,21 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 
 export default function Courses() {
-    const [courses, setCourses] = useState([])
+    const [courses, setCourses] = useState(null)
     async function fetchCourses() {
-        const response = await fetch("https://strapicpsacademy-production.up.railway.app/api/courses",
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
+        var response;
+        if (localStorage.getItem("token")) {
+            response = await fetch("https://strapicpsacademy-production.up.railway.app/api/courses",
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
                 }
-            }
-        )
+            )
+        }
+        else{
+            response = await fetch("https://strapicpsacademy-production.up.railway.app/api/courses")
+        }
         const data = await response.json()
         setCourses(data.data)
         localStorage.setItem("courses", JSON.stringify(data.data))
@@ -20,7 +26,7 @@ export default function Courses() {
     useEffect(() => {
         fetchCourses()
     }, [])
-    if (courses.length === 0) {
+    if (!courses) {
         return <h1>Loading...</h1>
     }
     return (
