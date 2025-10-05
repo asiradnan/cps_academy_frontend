@@ -1,11 +1,15 @@
 "use client"
 import Link from "next/link"
 import { redirect, usePathname } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function NavBar() {
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token") ? true : false)
-    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [user, setUser] = useState(null)
+    useEffect(() =>{
+        setIsLoggedIn(localStorage.getItem("token") ? true : false)
+        setUser(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null)
+    },[])
     const navLinks = [
         { href: "/", name: "Home" },
         { href: "/courses", name: "Courses" },
@@ -25,7 +29,7 @@ export default function NavBar() {
                         <Link href="/smm" key="smm" className={pathname === "/smm" ? "font-bold" : ""}>Social Media Management</Link>
                     }
                     {user && user.role && user.role.name === "Developer" &&
-                        <Link href="/dev" key="dev" className={pathname === "/dev" ? "font-bold" : ""}>Developer Panel</Link>
+                        <Link href="/dev-panel" key="dev" className={pathname === "/dev-panel" ? "font-bold" : ""}>Developer Panel</Link>
                     }
                     <Link href="/profile" key="profile" className={pathname === "/profile" ? "font-bold" : ""}>Profile</Link>
                     <button onClick={() => {
