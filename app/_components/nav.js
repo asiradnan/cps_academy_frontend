@@ -5,6 +5,7 @@ import { useState } from "react"
 
 export default function NavBar() {
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token") ? true : false)
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
     const navLinks = [
         { href: "/", name: "Home" },
         { href: "/courses", name: "Courses" },
@@ -20,6 +21,12 @@ export default function NavBar() {
             )}
             {isLoggedIn ?
                 (<>
+                    {user && user.role && user.role.name === "Social Media Manager" &&
+                        <Link href="/smm" key="smm" className={pathname === "/smm" ? "font-bold" : ""}>Social Media Management</Link>
+                    }
+                    {user && user.role && user.role.name === "Developer" &&
+                        <Link href="/dev" key="dev" className={pathname === "/dev" ? "font-bold" : ""}>Developer Panel</Link>
+                    }
                     <Link href="/profile" key="profile" className={pathname === "/profile" ? "font-bold" : ""}>Profile</Link>
                     <button onClick={() => {
                         localStorage.removeItem("token");

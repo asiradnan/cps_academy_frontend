@@ -25,10 +25,10 @@ export default function Login() {
                     }
                 })
                 alert("Login successful!");
-                const result2 = await response2.json();
-                console.log(result2);
-                localStorage.setItem("user", JSON.stringify(result2.data));
-                console.log("User logged in:", result2.data);
+                const data = await response2.json();
+                console.log(data);
+                localStorage.setItem("user", JSON.stringify(data));
+                console.log("User logged in:", data);
                 success = true;
             }
         } catch (error) {
