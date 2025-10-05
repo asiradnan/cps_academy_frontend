@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 
 export default function Profile() {
-    const [user, setUser] = useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null);
+    const [user, setUser] = useState(null);
     async function fetchUser() {
         const response = await fetch("https://strapicpsacademy-production.up.railway.app/api/users/me?populate=role",
             {
@@ -19,6 +19,7 @@ export default function Profile() {
     }
     useEffect(() => {
         fetchUser()
+        setUser(useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null))
     }, [])
     if (!user) {
         return <p>Loading...</p>
