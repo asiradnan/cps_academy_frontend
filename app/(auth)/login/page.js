@@ -16,8 +16,10 @@ export default function Login() {
                 body: JSON.stringify(data)
             })
             const result = await response.json();
+            console.log(result);
             if (result.jwt){
                 localStorage.setItem("token", result.jwt);
+                localStorage.setItem("user", JSON.stringify(result.user));
                 alert("Login successful!");
                 success = true;
             }
