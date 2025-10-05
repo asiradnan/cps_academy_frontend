@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Course({ params }) {
     const [course, setCourse] = useState({})
@@ -26,7 +27,7 @@ export default function Course({ params }) {
             <ol>
                 {course.topics && course.topics.map((topic, index) => {
                     return (
-                        <li key={index}>{topic.title}</li>
+                        <Link href={`/courses/course/${topic.documentId}`} key={index}>{topic.title}</Link>
                     )
                 })}
             </ol>
