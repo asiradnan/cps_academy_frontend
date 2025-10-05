@@ -8,7 +8,7 @@ export default function Login() {
         const data = Object.fromEntries(formData);
         var success = false;
         try {
-            const response = await fetch("https://strapicpsacademy-production.up.railway.app/api/auth/local", {
+            const response = await fetch("https://strapicpsacademy-production.up.railway.app/api/auth/local?populate=*", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -19,8 +19,16 @@ export default function Login() {
             console.log(result);
             if (result.jwt){
                 localStorage.setItem("token", result.jwt);
-                localStorage.setItem("user", JSON.stringify(result.user));
+                const response2 = await fetch("https://strapicpsacademy-production.up.railway.app/api/users/me?populate=role", {
+                    headers: {
+                        Authorization: `Bearer ${result.jwt}`
+                    }
+                })
                 alert("Login successful!");
+                const result2 = await response2.json();
+                console.log(result2);
+                localStorage.setItem("user", JSON.stringify(result2.data));
+                console.log("User logged in:", result2.data);
                 success = true;
             }
         } catch (error) {
