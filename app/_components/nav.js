@@ -36,14 +36,14 @@ export default function NavBar() {
                         </Link>
                     )
                 })}
-                {/* Admin Links */}
+                {/* SMM Links */}
                 {isLoggedIn && user?.role?.name === "Social Media Manager" && (
                     <Link 
                         href="/smm" 
                         key="smm" 
                         className={`text-sm block md:inline ${pathname === "/smm" ? "font-semibold text-gray-900" : "text-gray-600 hover:text-gray-900"}`}
                     >
-                        Admin
+                        Social Media Management
                     </Link>
                 )}
                 {isLoggedIn && user?.role?.name === "Developer" && (
