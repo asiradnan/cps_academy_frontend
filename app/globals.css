@@ -24,3 +24,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Ensure ordered lists show numbers */
+ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .max-w-7xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
