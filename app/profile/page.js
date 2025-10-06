@@ -13,13 +13,11 @@ export default function Profile() {
             }
         )
         const data = await response.json()
-        setUser(data)
         localStorage.setItem("user", JSON.stringify(data))
-        console.log(data)
     }
     useEffect(() => {
         fetchUser()
-        setUser(useState(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null))
+        setUser(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null)
     }, [])
     if (!user) {
         return <p>Loading...</p>
